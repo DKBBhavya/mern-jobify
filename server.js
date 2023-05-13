@@ -1,3 +1,4 @@
+import cors from "cors";
 import express from "express";
 import notFoundMiddleware from "./middleware/not-found.js";
 import errorHandlerMiddleware from "./middleware/error-handler.js";
@@ -9,6 +10,7 @@ import "express-async-errors";
 import authRouter from "./routes/authRoutes.js";
 import jobsRouter from "./routes/jobsRoutes.js";
 
+app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
