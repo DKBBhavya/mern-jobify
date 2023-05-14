@@ -1,13 +1,23 @@
 import express from "express";
-import notFoundMiddleware from "./middleware/not-found.js";
-import errorHandlerMiddleware from "./middleware/error-handler.js";
 const app = express();
+
 import dotenv from "dotenv";
-import connectDB from "./db/connect.js";
 dotenv.config();
+
 import "express-async-errors";
+import morgan from "morgan";
+
+import connectDB from "./db/connect.js";
+
 import authRouter from "./routes/authRoutes.js";
 import jobsRouter from "./routes/jobsRoutes.js";
+
+import notFoundMiddleware from "./middleware/not-found.js";
+import errorHandlerMiddleware from "./middleware/error-handler.js";
+
+if (process.env.NODE_ENV !== "production") {
+  app.use(morgan("dev"));
+}
 
 app.use(express.json());
 
