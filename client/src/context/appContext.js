@@ -6,6 +6,8 @@ import {
   SETUP_USER_BEGIN,
   SETUP_USER_SUCCESS,
   SETUP_USER_ERROR,
+  TOGGLE_SIDEBAR,
+  LOGOUT_USER,
 } from "./actions";
 
 import axios from "axios";
@@ -23,6 +25,7 @@ const initialState = {
   token: token || null,
   userLocation: userLocation || "",
   jobLocation: userLocation || "",
+  showSidebar: false,
 };
 
 const AppContext = createContext();
@@ -47,10 +50,10 @@ const AppProvider = ({ children }) => {
     localStorage.setItem("location", location);
   };
 
-  const removeUserFromLocalStorage = ({ user, token, location }) => {
-    localStorage.removeItem("user", JSON.stringify(user));
-    localStorage.removeItem("token", token);
-    localStorage.removeItem("location", location);
+  const removeUserFromLocalStorage = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("location");
   };
 
   const setupUser = async ({ currentUser, endPoint, alertText }) => {
@@ -76,8 +79,19 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
+  const toggleSidebar = () => {
+    dispatch({ type: TOGGLE_SIDEBAR });
+  };
+
+  const logoutUser = () => {
+    dispatch({ type: LOGOUT_USER });
+    removeUserFromLocalStorage();
+  };
+
   return (
-    <AppContext.Provider value={{ ...state, displayAlert, setupUser }}>
+    <AppContext.Provider
+      value={{ ...state, displayAlert, setupUser, toggleSidebar, logoutUser }}
+    >
       {children}
     </AppContext.Provider>
   );
