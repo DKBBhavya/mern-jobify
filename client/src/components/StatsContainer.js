@@ -15,7 +15,7 @@ const StatsContainer = () => {
     },
     {
       title: "interviews scheduled",
-      count: stats.pending || 0,
+      count: stats.interview || 0,
       icon: <FaCalendarCheck />,
       color: "#647acb",
       bcg: "#e0e8f9",
