@@ -5,12 +5,21 @@ import Loading from "./Loading";
 import Job from "./Job";
 
 const JobsContainer = () => {
-  const { getJobs, jobs, isLoading, totalJobs } = useAppContext();
+  const {
+    getJobs,
+    jobs,
+    isLoading,
+    totalJobs,
+    search,
+    searchType,
+    searchStatus,
+    sort,
+  } = useAppContext();
 
   useEffect(() => {
     getJobs();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [search, searchType, searchStatus, sort]);
 
   if (isLoading) {
     return <Loading center />;
