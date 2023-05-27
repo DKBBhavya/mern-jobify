@@ -1,4 +1,24 @@
+import { useEffect } from "react";
+import { useAppContext } from "../../context/appContext";
+import { ChartsContainer, Loading, StatsContainer } from "../../components";
+
 const Stats = () => {
-  return <div>Stats</div>;
+  const { showStats, isLoading, monthlyApplications } = useAppContext();
+
+  useEffect(() => {
+    showStats();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (isLoading) {
+    return <Loading center />;
+  }
+
+  return (
+    <>
+      <StatsContainer />
+      {monthlyApplications.length > 0 && <ChartsContainer />}
+    </>
+  );
 };
 export default Stats;
