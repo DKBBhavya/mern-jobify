@@ -220,7 +220,6 @@ const AppProvider = ({ children }) => {
         payload: { jobs, totalJobs, numOfPages },
       });
     } catch (error) {
-      console.log(error.response);
       logoutUser();
     }
     clearAlert();
